@@ -16,5 +16,5 @@ Este es un proyecto creado con **React** y **TypeScript** (puedes eliminar TypeS
 
 1. Clonar este repositorio:
    ```bash
-   git clone https://github.com/miusuario/mi-proyecto.git
+   git clone https://github.com/athenasaint01/test-interview
    ```
