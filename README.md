@@ -1,4 +1,4 @@
-# Site para entrevista
+# Site Rimac
 
 ## Descripción
 
@@ -8,9 +8,8 @@ Este es un proyecto creado con **React** y **TypeScript** (puedes eliminar TypeS
 
 - React.js
 - TypeScript (opcional)
-- Sass (para el manejo de estilos)
-- ESLint y Prettier (para el análisis y formateo de código)
 - Git (gestión de versiones)
+- Jest (Pruebas unitarias)
 
 ## Instalación
 
