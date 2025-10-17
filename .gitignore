@@ -6,33 +6,6 @@ npm-debug.log
 yarn-debug.log
 yarn-error.log
 
-# Build output
-/dist
-
 # IDE settings
 .vscode/
 .idea/
-
-# Misc
-*.env
-.DS_Store
-
-# TypeScript
-*.tsbuildinfo
-
-# Testing and Coverage folders
-coverage/
-
-# Vite build folder
-/vite/
-
-# Assets, images, or public files that should not be versioned
-public/assets/
-
-# Ignore specific files (like generated config files)
-tsconfig.jest.json
-tsconfig.node.json
-tsconfig.app.json
-
-# Ignore mock files for tests
-__mocks__/
