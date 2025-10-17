@@ -1,0 +1,518 @@
+@use "variables" as *;
+
+/* Contenedor principal de la sección */
+.form-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%; /* Asegura que ocupe todo el ancho */
+  padding: 40px 20px;
+  gap: 30px;
+  box-sizing: border-box; /* Evita el desbordamiento por el padding */
+  overflow-x: hidden; /* Asegura que no haya desbordamiento horizontal */
+  position: relative;
+  z-index: 1;
+}
+
+/* Contenedor de contenido */
+.content {
+  display: flex;
+  width: 100%;
+  max-width: 1200px; /* Limitamos el ancho máximo */
+  justify-content: space-between; /* Alineación en dos columnas */
+  box-sizing: border-box; /* Evita el desbordamiento por el padding */
+  gap: 50px; /* Agregado espacio entre la imagen y el formulario */
+}
+
+/* Contenedor de la imagen */
+.image-container {
+  max-width: 480px; /* Asegura que la imagen no se desborde */
+  box-sizing: border-box; /* Evita el desbordamiento por el padding */
+  position: relative;
+}
+
+/* Imagen de fondo */
+.background-image {
+  width: 100%; /* La imagen ocupa todo el contenedor */
+  height: auto;
+  object-fit: cover; /* Asegura que la imagen cubra todo el contenedor sin deformarse */
+  border-radius: 30px;
+}
+
+/* Contenedor del formulario */
+.form-container {
+  width: 30%; /* El formulario ocupa el 50% */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 100%; /* Asegura que el formulario no se desborde */
+  box-sizing: border-box;
+  margin-right: 15vw;
+}
+
+.form-container hr {
+  display: none;
+}
+
+/* Títulos y subtítulos */
+h1 {
+  font-family: "Lato";
+  font-size: 32px;
+  line-height: 40px;
+  margin-top: 10px !important;
+}
+
+.subheading {
+  font-size: 12px;
+  line-height: 1.25rem;
+  letter-spacing: 0.2px;
+  font-family: "Lato";
+  font-weight: bold;
+}
+
+/* Estilos del formulario */
+.registration-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  padding: 20px 0;
+  background-color: $bg-transparent;
+  box-sizing: border-box;
+  font-family: "Lato";
+}
+
+/* Contenedor de los inputs y labels */
+.input-group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.input-group label {
+  font-size: 16px;
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  color: #848484;
+  transition: all 0.2s ease-in-out;
+  pointer-events: none;
+}
+
+/* Estilos para los inputs */
+.input-group input {
+  padding: 20px 12px 12px 12px;
+  border: 1px solid #848484;
+  max-width: 100%;
+  font-size: 16px;
+  transition: all 0.2s ease-in-out;
+  background-color: transparent; /* El fondo del input es transparente */
+  border-radius: 6px;
+}
+
+/* Estilo para los inputs en la misma línea */
+.input-group-inline {
+  display: flex;
+  justify-content: space-between;
+  gap: 0px; /* Ajusta el espacio entre los campos */
+}
+
+.input-group-inline select,
+.input-group-inline input {
+  padding: 16px;
+  border: 1px solid #848484;
+  font-size: 16px;
+}
+
+.input-group-inline select {
+  width: 40%;
+  border-bottom-left-radius: 6px;
+  border-top-left-radius: 6px;
+  border-right: 1px solid #848484;
+}
+
+.input-group-inline .input-group {
+  width: 60%;
+}
+
+.input-group-inline .input-group input {
+  padding: 20px 12px 12px 12px;
+  border-bottom-right-radius: 6px;
+  border-top-right-radius: 6px;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  border-left: 1px solid #848484;
+}
+
+/* Estilo para el select */
+select {
+  position: relative;
+  width: 100%; /* Asegura que ocupe todo el ancho */
+  padding: 10px 20px; /* Agrega un padding adecuado */
+  font-size: 16px; /* Aumentamos el tamaño de la fuente */
+  border: 1px solid #ccc; /* Borde para el select */
+  background: transparent url("/assets//icons/down-arrow.png") no-repeat
+    right 10px center;
+  background-size: 18px; /* Tamaño de la flecha */
+  appearance: none; /* Elimina la flecha predeterminada del select */
+  outline: none; /* Elimina el borde de enfoque */
+}
+
+select:focus {
+  border-color: #5c5c5c; /* Cambia el borde al estar enfocado */
+}
+
+/* Para eliminar el borde de enfoque en el select */
+select:focus {
+  outline: none;
+}
+
+/* Mueve la flecha hacia la izquierda */
+select::-ms-expand {
+  display: none; /* Elimina el expand de IE */
+}
+
+input.error {
+  border-color: red;
+}
+
+/* Estilos de los checkboxes */
+.checkboxes {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.checkboxes label {
+  font-size: 14px;
+}
+
+/* Animación del spinner */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Cuando el input tiene el foco o un valor, el label sube */
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label {
+  top: 12px; /* Sube el label cuando el input tiene valor */
+  font-size: 12px; /* Hace más pequeño el label */
+  color: #5c5c5c; /* Cambia el color del texto */
+}
+
+/* Estilos al hacer foco o tener un valor */
+.input-group input:focus,
+.input-group input:not(:placeholder-shown) {
+  border-color: #5c5c5c; /* Cambia el borde al estar enfocado o con valor */
+  outline: none; /* Elimina el borde predeterminado de enfoque */
+}
+
+.tag {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: "Lato";
+  font-size: 16px;
+  line-height: 16px;
+  letter-spacing: 0.4px;
+  background: linear-gradient(90deg, #00f4e2, #00ff7f);
+  color: var(--secundary-color);
+  font-weight: bold;
+  width: fit-content;
+}
+
+/* From Uiverse.io by DaniloMGutavo */
+.checkbox-container {
+  display: inline-block;
+  position: relative;
+  padding-left: 35px;
+  cursor: pointer;
+  font-size: 12px;
+  user-select: none;
+  font-family: "Lato";
+}
+
+.custom-checkbox {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #eee;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+  // box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+.custom-checkbox:checked ~ .checkmark {
+  background-color: #000;
+  box-shadow: 0 3px 7px rgba(33, 150, 243, 0.3);
+}
+
+.custom-checkbox:checked ~ .checkmark:after {
+  display: block;
+}
+
+@keyframes checkAnim {
+  0% {
+    height: 0;
+  }
+
+  100% {
+    height: 10px;
+  }
+}
+
+.custom-checkbox:checked ~ .checkmark:after {
+  animation: checkAnim 0.2s forwards;
+}
+
+/* Estilo para el texto de "Aplican Términos y Condiciones" */
+.terms-and-conditions {
+  font-size: 14px; /* Ajusta el tamaño de la fuente */
+  color: #333; /* Color del texto */
+
+  .terms-link {
+    color: #5c5c5c; /* Color gris para el enlace */
+    text-decoration: underline; /* Subraya el enlace */
+    cursor: pointer; /* Cambia el cursor al pasar por encima */
+    font-weight: bold; /* Hace el enlace más fuerte */
+    transition: color 0.3s; /* Transición suave para el color */
+
+    &:hover {
+      color: #000; /* Cambia el color a negro cuando se pasa por encima */
+    }
+  }
+}
+
+.header-image {
+  display: none;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px; /* Agregamos espacio entre el texto y la imagen */
+  margin-bottom: 20px; /* Separación entre el encabezado y el formulario */
+}
+
+/* Base: imágenes decorativas por debajo de todo */
+.abso {
+  position: absolute;
+  z-index: -1; /* quédense detrás del contenido */
+  pointer-events: none; /* no bloquean clics */
+  user-select: none;
+  display: block;
+}
+
+/* Helpers de posición */
+.r-0 {
+  right: 0;
+}
+.l-0 {
+  left: 0;
+}
+.t-0 {
+  top: 0;
+}
+.b-0 {
+  bottom: 0;
+}
+
+/* Visibilidad responsive */
+.no-desktop {
+  display: none;
+}
+.no-mobile {
+  display: block;
+}
+
+/* Tamaños sugeridos para desktop */
+.abso.r-0.top-0.no-mobile {
+  width: clamp(420px, 28vw, 720px);
+  max-width: 50vw;
+}
+
+.abso.l-0.b-0.no-mobile {
+  width: clamp(420px, 28vw, 720px);
+  max-width: 50vw;
+}
+
+/* Estilos Responsivos */
+@media (min-width: 1550px) and (max-width: 1800px) {
+  .form-section {
+    padding: 40px 20px;
+    min-height: calc(100dvh - 153px);
+    align-items: baseline;
+  }
+}
+
+@media (min-width: 981px) and (max-width: 1500px) {
+  .abso.l-0.b-0.no-mobile {
+    width: clamp(350px, 124vw, 400px);
+    max-width: 50vw;
+    position: fixed;
+  }
+  .form-section {
+    .content {
+      display: flex;
+      width: 100%;
+      max-width: 1110px;
+      justify-content: space-between;
+      box-sizing: border-box;
+      gap: 50px;
+    }
+  }
+}
+
+@media (min-width: 769px) and (max-width: 980px) {
+  .form-section {
+    min-height: calc(100dvh - 153px);
+    align-items: baseline;
+
+    .image-container {
+      max-width: 300px;
+      box-sizing: border-box;
+      position: relative;
+    }
+    .form-container {
+      width: 45%;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      max-width: 100%;
+      box-sizing: border-box;
+      margin-right: 5vw;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .form-section {
+    flex-direction: column; /* Cambio a columna en móviles */
+    padding: 0 20px; /* Ajustamos el padding */
+    overflow-x: hidden; /* Asegura que no haya desbordamiento horizontal */
+    min-height: calc(100dvh - 153px);
+    justify-content: initial;
+
+    hr {
+      margin: 5px 0;
+    }
+  }
+
+  .registration-form {
+    padding: 30px 0;
+  }
+
+  .image-container {
+    width: 100%; /* La imagen ocupa el 100% en móviles */
+    margin-bottom: 20px; /* Separación entre la imagen y el formulario */
+  }
+
+  .image-container {
+    display: none; /* Ocultamos la imagen en pantallas móviles */
+  }
+
+  .form-container {
+    width: 100%; /* El formulario ocupa todo el ancho en móvil */
+    margin: 0;
+  }
+
+  .form-container hr {
+    display: block;
+    width: 100%; /* Ajustar el tamaño de la línea */
+    border: 0;
+    border-top: 1px solid #ccd1ee;
+  }
+
+  .header-image {
+    display: block;
+  }
+
+  .form-section {
+    button {
+      width: 100%; /* El botón ocupa todo el ancho en móviles */
+      margin-top: 3vw;
+    }
+  }
+
+  .header-container {
+    gap: 40px;
+  }
+  .subheading {
+    margin-top: 20px;
+    font-size: 0.95rem;
+  }
+
+  .checkbox-container {
+    font-size: 1rem;
+  }
+
+  .no-desktop {
+    display: block;
+  }
+  .no-mobile {
+    display: none;
+  }
+
+  .abso.r-0.top-0.no-desktop {
+    width: clamp(180px, 80vw, 360px);
+    transform: translateY(-10%);
+  }
+
+  .abso.l-0.b-0.no-desktop {
+    width: clamp(180px, 55vw, 360px);
+    transform: translateY(-25%);
+  }
+}
+
+/* Estilos Responsivos */
+@media (max-width: 450px) {
+  .tag {
+    font-size: 12px;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+
+  .header-container {
+    gap: 30px;
+  }
+
+  .form-container {
+    padding: 0;
+  }
+}

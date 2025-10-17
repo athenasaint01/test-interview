@@ -1,0 +1,24 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+
+// Variables Generales del Sitio
+$font-family: "Roboto", sans-serif;
+$background-color: #f9f9f9;
+$primary-color: #4f4fff;
+$secondary-color: #03050f;
+$accent-color: #389e0d; // Color verde para los botones de éxito
+$error-color: #ff1c44; // Rojo para los errores
+$success-color: #007bff; // Azul para los botones
+$footer-background-color: #131313;
+$header-background-color: #ffffff;
+$white: #fff;
+$form-background-color: #fff;
+$bg-transparent: transparent;
+
+// Definir tipografía
+$heading-font-size: 2rem;
+$paragraph-font-size: 1rem;
+
+// Variables para márgenes y rellenos
+$main-padding: 20px;
+$header-padding: 20px;

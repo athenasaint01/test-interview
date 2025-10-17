@@ -1,0 +1,90 @@
+@use "variables" as *;
+
+.footer {
+  background-color: $footer-background-color;
+  color: $white; // Color blanco
+  text-align: center;
+  padding: 20px 40px;
+  width: 100%; // Asegura que ocupe todo el ancho
+  box-sizing: border-box;
+  position: relative;
+  margin-top: auto; // Empuja el footer al fondo
+  bottom: 0;
+  justify-content: flex-end;
+
+  .footer__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px; // Limita el ancho máximo del footer
+    margin: 0 auto; // Centra el contenido
+  }
+
+  .footer__logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      width: 73px;
+    }
+  }
+
+  .footer__text {
+    font-size: 14px;
+    color: #ccc; // Gris claro
+    font-family: "Roboto", sans-serif;
+    margin: 0;
+    text-align: right;
+
+    a {
+      color: #ccc; // Color gris para el enlace
+      text-decoration: none;
+      font-weight: bold;
+    }
+  }
+
+  hr {
+    display: none;
+  }
+
+  @media (min-width: 981px) and (max-width: 1500px) {
+    .footer__content {
+      max-width: 1110px;
+    }
+  }
+
+  // Estilos responsivos
+  @media (max-width: 768px) {
+    padding: 30px 20px;
+
+    .footer__content {
+      flex-direction: column; // Cambia a columna en móviles
+      align-items: center; // Centra el contenido
+      text-align: center;
+    }
+
+    .footer__logo {
+      margin-bottom: 10px; // Separación entre el logo y el texto
+
+      img {
+        width: 70px;
+      }
+    }
+
+    .footer__text {
+      font-size: 12px; // Ajuste de tamaño de fuente en móviles
+      color: $white; // Asegura que el texto sea blanco
+      margin-top: 10px;
+    }
+
+    hr {
+      display: block;
+      width: 86%; // Ajustar el tamaño de la línea
+      border: 0;
+      border-top: 1px solid #ccd1ee; // Línea gris para separar el contenido
+      margin: 20px 0; // Margen vertical
+    }
+  }
+}

@@ -1,0 +1,49 @@
+/* Botón de envío */
+.form-container {
+  button {
+    padding: 20px 20px; /* Ajuste en el padding para un tamaño adecuado */
+    background-color: #000; /* Fondo negro */
+    color: white; /* Texto blanco */
+    border: none;
+    border-radius: 50px; /* Bordes redondeados */
+    cursor: pointer;
+    font-size: 20px; /* Tamaño de la fuente */
+    font-weight: bold; /* Texto en negrita */
+    transition: background-color 0.3s ease; /* Transición para el hover */
+    width: 60%;
+    margin-top: 1vw;
+    position: relative;
+    height: 65px;
+
+    &:hover {
+      background-color: #333; /* Fondo ligeramente más claro al pasar el cursor */
+    }
+
+    &:disabled {
+      background-color: #ccc; /* Color cuando el botón está deshabilitado */
+      cursor: not-allowed;
+    }
+  }
+
+  .loading-container {
+    display: flex;
+    align-items: center; /* Centrar el texto y el spinner */
+    justify-content: center;
+    gap: 10px; /* Espacio entre el spinner y el texto */
+  }
+
+  .loader {
+    border: 3px solid #f3f3f3; /* Color de fondo del spinner */
+    border-top: 3px solid #e02121; /* Color del spinner */
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite; /* Animación del spinner */
+  }
+
+  .loading-text {
+    font-size: 16px;
+    color: white;
+    font-weight: bold;
+  }
+}

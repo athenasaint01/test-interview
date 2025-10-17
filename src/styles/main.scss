@@ -1,0 +1,59 @@
+@use "variables" as *;
+
+// html, body {
+//   scroll-behavior: smooth;
+// }
+
+body {
+  font-family: $font-family;
+  background-color: $background-color;
+  color: $secondary-color;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* Cambiar de 'center' a 'stretch' */
+  width: 100%;
+}
+
+blockquote,
+dl,
+dd,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+figure,
+p,
+pre {
+  margin: 0;
+}
+
+.error {
+  color: #ff1c44;
+  display: block;
+  font-family: "Lato";
+  margin-top: -12px;
+}
+
+/* Visibilidad responsive */
+.no-desktop {
+  display: none;
+}
+.no-mobile {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .no-desktop {
+    display: block !important;
+  }
+  .no-mobile {
+    display: none !important;
+  }
+}

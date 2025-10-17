@@ -1,35 +1,54 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { type JSX } from "react";
+import "./styles/main.scss"; // Archivo Sass principal
+import Header from "./components/layout/Header";
+import Footer from "./components/layout/Footer";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import RegistrationForm from "./components/RegistrationForm";
+import InsurancePage from "./components/InsurancePage";
+import { UserProvider, useUserContext } from "./context/UserContext";
 
-function App() {
-  const [count, setCount] = useState(0)
+const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
+  const { formData } = useUserContext();
 
+  // Verificar si el formulario está completo
+  const isFormCompleted =
+    formData.documentNumber && formData.cellphone && formData.privacyPolicy && formData.commercialPolicy;
+
+  if (!isFormCompleted) {
+    // Si no está completo, redirigir al formulario
+    return <Navigate to="/" />;
+  }
+
+  return children;
+};
+
+const App = () => {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <UserProvider>
+      <Router>
+        <div className="app-container">
+          <Header />
+          <main>
+            <Routes>
+              {/* Ruta para el formulario */}
+              <Route path="/" element={<RegistrationForm />} />
 
-export default App
+              {/* Ruta para InsurancePage protegida */}
+              <Route
+                path="/plans"
+                element={
+                  <ProtectedRoute>
+                    <InsurancePage />
+                  </ProtectedRoute>
+                }
+              />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
+      </Router>
+    </UserProvider>
+  );
+};
+
+export default App;

@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Button Component Snapshots debe coincidir con snapshot en estado disabled 1`] = `
+<button
+  aria-busy="false"
+  class=""
+  disabled=""
+  type="button"
+>
+  Enviar
+</button>
+`;
+
+exports[`Button Component Snapshots debe coincidir con snapshot en estado loading 1`] = `
+<button
+  aria-busy="true"
+  class=""
+  disabled=""
+  type="button"
+>
+  <div
+    class="loading-container"
+  >
+    <span
+      aria-hidden="true"
+      class="loader"
+    />
+    <span
+      class="loading-text"
+    >
+      Cargando...
+    </span>
+  </div>
+</button>
+`;
+
+exports[`Button Component Snapshots debe coincidir con snapshot en estado normal 1`] = `
+<button
+  aria-busy="false"
+  class=""
+  type="button"
+>
+  Enviar
+</button>
+`;

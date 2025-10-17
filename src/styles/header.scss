@@ -1,0 +1,85 @@
+@use "variables" as *;
+
+.header {
+  background-color: $bg-transparent;
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%; // Asegura que ocupe todo el ancho
+  max-width: 1280px; // Limita el ancho máximo del header
+  margin: 0 auto; // Centra el header
+  box-sizing: border-box;
+
+  .header__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .header__logo {
+    img {
+      width: 73px;
+    }
+  }
+
+  .header__contact {
+    font-size: 14px;
+    text-align: right;
+    display: flex;
+    justify-content: flex-end; // Mantiene los elementos alineados a la derecha
+    align-items: center; // Alinea verticalmente los elementos
+
+    p {
+      color: black; // Color negro para el texto
+      font-size: 14px;
+      font-weight: 600;
+      margin-right: 15px; // Margen a la derecha para separar el texto del número
+      font-family: "Lato";
+    }
+
+    a {
+      color: black; // Color negro para el enlace
+      font-weight: bold;
+      font-size: 17px;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      font-family: "Roboto";
+    }
+  }
+}
+
+@media (min-width: 981px) and (max-width: 1500px) {
+  .header {
+    max-width: 1184px;
+  }
+}
+
+// Estilos responsivos
+@media (max-width: 768px) {
+  .header {
+    padding: 10px 20px;
+  }
+
+  .header__logo img {
+    width: 70px;
+  }
+
+  .header__contact {
+    font-size: 12px;
+    display: flex;
+    justify-content: center; // Centra el contenido en pantallas pequeñas
+    align-items: center;
+
+    p {
+      display: none; // Oculta el texto "¡Compra por este medio!" en móvil
+    }
+
+    a {
+      font-size: 20px; // Tamaño más grande para el enlace en móvil
+      font-weight: 900;
+    }
+  }
+}

@@ -1,0 +1,923 @@
+@use "variables" as *;
+
+.insurance-page {
+  background-color: #fafbff !important;
+  padding-bottom: 4rem;
+  min-height: 100dvh;
+
+  .progress-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // margin-top: 30px;
+    background-color: #edeffc;
+    padding: 10px 0; /* Ajuste para dar espacio a la barra de progreso */
+
+    .progress {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 500px; /* Aumento el tamaño de la barra de progreso */
+      font-family: "Lato";
+
+      .step {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start; /* Alineamos el contenido al inicio */
+        margin: 0 40px; /* Aumento el espaciado entre los pasos */
+
+        .circle {
+          width: 28px;
+          height: 28px;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-weight: bold;
+          font-size: 16px;
+          transition: background-color 0.3s ease, color 0.3s ease;
+          margin-right: 15px; /* Espacio entre el círculo y el texto */
+          background: transparent;
+          border: 2px solid #7981b2;
+          color: #7981b2;
+
+          &.active {
+            background-color: #4f4fff; /* Color cuando el paso está activo */
+            color: white;
+            border: 2px solid #4f4fff;
+          }
+        }
+
+        .step-title {
+          font-size: 14px;
+          color: #141938b5; /* Color del texto de los pasos */
+        }
+
+        &.active .step-title {
+          color: #141938; /* Cambiar el color del texto cuando el paso está activo */
+          font-weight: bold;
+        }
+      }
+
+      .dots {
+        width: 30px;
+        height: 2px;
+        background-color: rgba(76, 175, 80, 0.2);
+        transition: background-color 0.3s ease;
+        margin-top: 10px; /* Espaciado vertical para centrar los puntos */
+        margin-bottom: 10px; /* Espaciado inferior para alinearlos verticalmente */
+
+        &.active {
+          width: 36px;
+          height: 4px;
+          border-radius: 4px;
+          background: repeating-linear-gradient(
+            90deg,
+            #4f4fff 0 4px,
+            rgba(79, 79, 255, 0) 4px 10px
+          );
+          opacity: 0.6;
+        }
+      }
+    }
+  }
+
+  /* Fila para el botón de volver */
+  .back-button-row {
+    background-color: transparent;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+
+  /* Estilos del botón "Volver" */
+  .back-button {
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    cursor: pointer;
+    color: #4f4fff;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    border: none;
+
+    .back-circle {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: transparent;
+      color: #4f4fff;
+      font-size: 18px;
+      margin-right: 10px;
+      transition: background-color 0.3s ease;
+      font-family: "Roboto", sans-serif;
+      border: 2px solid #4f4fff;
+
+      &:hover {
+        background-color: rgba(79, 79, 255, 0.2);
+      }
+
+      svg {
+        /* Ajustar el tamaño del ícono */
+        width: 10px;
+        height: 16px;
+      }
+    }
+
+    .back-text {
+      font-size: 16px;
+      color: #4f4fff;
+    }
+
+    &:hover .back-text {
+      color: #3e3fff; /* Cambiar color del texto al pasar el cursor */
+    }
+  }
+
+  /* Fila para el botón de volver */
+  .back-button-row {
+    background-color: transparent;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+
+  /* Estilos del botón "Volver" */
+  .back-button2 {
+    align-items: center;
+    background-color: transparent;
+    cursor: pointer;
+    color: #4f4fff;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    border: none;
+
+    .back-circle {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: transparent;
+      color: #acaceb;
+      font-size: 18px;
+      margin-right: 10px;
+      transition: background-color 0.3s ease;
+      font-family: "Roboto", sans-serif;
+      border: 2px solid #acaceb;
+
+      &:hover {
+        background-color: rgba(79, 79, 255, 0.2);
+      }
+
+      svg {
+        /* Ajustar el tamaño del ícono */
+        width: 10px;
+        height: 16px;
+      }
+    }
+
+    .back-text {
+      font-size: 16px;
+      color: #4f4fff;
+    }
+
+    &:hover .back-text {
+      color: #3e3fff; /* Cambiar color del texto al pasar el cursor */
+    }
+  }
+
+  /* Fila para el contenedor centrado */
+  .centered-box-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  /* Estilos para centrar el contenido */
+  .centered-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: $bg-transparent;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 550px;
+
+    h2 {
+      font-size: 40px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+      text-align: center;
+      font-family: Lato;
+      line-height: normal;
+    }
+
+    p {
+      font-size: 16px;
+      color: #555;
+      text-align: center;
+      font-family: "Lato";
+      margin-top: 0.7rem;
+      font-weight: 600;
+    }
+  }
+
+  /* Estilos para las opciones "Para mí" y "Para alguien más" */
+  .options-row {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 30px 0;
+
+    .option-box {
+      display: flex;
+      flex-direction: column;
+      align-items: baseline;
+      justify-content: center;
+      cursor: pointer;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 20px;
+      border: 2px solid transparent;
+      width: 250px;
+      text-align: left;
+      -webkit-box-shadow: 1px 0px 15px 2px rgba(227, 239, 255, 0.5);
+      box-shadow: 1px 0px 15px 2px rgba(227, 239, 255, 0.5);
+      transition: 0.3s ease;
+      position: relative;
+
+      .icon {
+        font-size: 30px;
+        color: #7981b2;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: end;
+
+        img {
+          width: 35px;
+          margin-right: 10px;
+        }
+
+        h2 {
+          font-size: 20px;
+          font-weight: bold;
+          color: #141938;
+        }
+      }
+
+      .option-text {
+        h2 {
+          font-size: 20px;
+          font-weight: bold;
+          color: #141938;
+        }
+
+        p {
+          font-size: 12px;
+          color: #555;
+          margin-top: 5px;
+          font-weight: 400;
+        }
+      }
+
+      &.selected {
+        border-color: #2e2e3b;
+        background-color: #fff;
+
+        .icon {
+          color: #4f4fff;
+        }
+      }
+
+      &:hover {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      input {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        opacity: 1;
+        cursor: pointer;
+      }
+
+      input:checked + .icon {
+        color: #4caf50; /* Color verde cuando está seleccionado */
+      }
+    }
+  }
+
+  .input-checkbox {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    appearance: none;
+    background-color: #bbb;
+    transition: all 0.3s;
+  }
+
+  .input-checkbox::before {
+    content: "";
+    position: absolute;
+    border: solid #fff;
+    display: block;
+    width: 0.3em;
+    height: 0.6em;
+    border-width: 0 0.2em 0.2em 0;
+    z-index: 1;
+    opacity: 0;
+    right: calc(55% - 0.3em);
+    top: calc(50% - 0.6em);
+    transform: rotate(0deg);
+    transition: all 0.3s;
+    transform-origin: center center;
+  }
+
+  .input-checkbox:checked {
+    animation: a 0.3s ease-in forwards;
+    background-color: #389e0d;
+  }
+
+  .input-checkbox:checked::before {
+    opacity: 1;
+    transform: rotate(405deg);
+  }
+
+  /* Estilo del botón: Siguiente/Ver resumen */
+  .full-width-button {
+    width: 100%; /* Hacer que el botón ocupe todo el ancho */
+    margin-top: 30px;
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+
+    &:hover {
+      background-color: #45a049;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .progress-container {
+      background-color: $bg-transparent;
+      border-bottom: 1px solid #d7dbf5;
+      margin-top: 5px;
+
+      .progress {
+        width: 80%; /* Hacemos la barra más pequeña en móviles */
+      }
+    }
+
+    .centered-box {
+      h2 {
+        font-size: 2rem;
+        text-align: left;
+      }
+
+      p {
+        text-align: left;
+        width: inherit;
+      }
+    }
+
+    .options-row {
+      display: grid;
+
+      .option-box {
+        width: 300px;
+      }
+    }
+  }
+}
+
+.plans-list {
+  margin-top: 24px;
+
+  .container {
+    /* container clásico */
+    max-width: 1120px; /* ajústalo a tu grid (960/1140/1200…) */
+    margin: 0 auto; /* centra */
+    padding: 0 16px; /* respiración lateral */
+    position: relative; /* referencia para flechas absolutas */
+  }
+
+  /* wrapper del carrusel + flechas */
+  .plans-sliderWrap {
+    position: relative;
+    padding: 0 36px; /* deja espacio para las flechas dentro del container */
+  }
+
+  /* grid por defecto (desktop) */
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  /* flechas (ocultas en desktop) */
+  .slider-btn {
+    display: none;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 0;
+  // background: #0000009e;
+    border: 2px solid #ff1c44;
+    color: #ff1c44;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.2s ease, opacity 0.2s ease;
+    opacity: 0.75;
+
+    &:disabled {
+      opacity: 0.35;
+      pointer-events: none;
+    }
+    &--prev {
+      left: 25px;
+    }
+    &--next {
+      right: 25px;
+    }
+  }
+}
+
+/* Animación de entrada para las cards */
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.plan-card {
+  background: #fff;
+  border-radius: 25px;
+  padding: 18px;
+  -webkit-box-shadow: 1px 0px 15px 2px rgba(227, 239, 255, 0.5);
+  box-shadow: 1px 0px 15px 2px rgba(227, 239, 255, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  opacity: 0;
+  transform: translateY(14px);
+  animation: slideUpFade 0.45s ease forwards;
+
+  &__title {
+    font-weight: 800;
+    color: #141938;
+  }
+  &__price {
+    font-size: 20px;
+    font-weight: 800;
+    color: #141938;
+  }
+  &__badge {
+    margin-left: 6px;
+    font-size: 12px;
+    color: #4f4fff;
+  }
+
+  &__desc {
+    margin-top: 0px;
+    padding-left: 18px;
+    li {
+      margin: 12px 0;
+      line-height: 2;
+      color: #3a3a3a;
+      font-size: 16px;
+    }
+  }
+
+  &__cta {
+    margin-top: auto;
+    background: #ff1c44;
+    color: #fff;
+    border: 0;
+    padding: 10px 14px;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 35px;
+    font-size: 18px;
+    font-family: "Lato";
+    font-weight: 700;
+    letter-spacing: 0.4px;
+  }
+}
+
+.plan-card {
+  background: #fff;
+  border-radius: 25px;
+  padding: 50px 35px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-family: "Lato", sans-serif;
+
+  /* Contenedor para el nombre y la imagen */
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__name {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__icon {
+    width: 30px; /* Ajusta el tamaño de la imagen */
+    height: 30px; /* Ajusta el tamaño de la imagen */
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  &__title {
+    font-weight: 800;
+    color: #141938;
+    font-size: 24px;
+  }
+
+  /* Sección del costo del plan */
+  &__price-info {
+    margin-top: 10px;
+  }
+
+  &__label {
+    font-size: 14px;
+    color: #7981b2;
+    font-weight: bold;
+  }
+
+  &__price {
+    font-size: 20px;
+    font-weight: 800;
+    color: #141938;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  &__badge {
+    font-size: 12px;
+    color: #4f4fff;
+  }
+}
+
+.plan-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.plan-card__name {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+
+.plan-card__icon {
+  width: 100px;
+  height: 50px;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+p.tachado {
+  text-decoration: line-through;
+  color: #7981b2;
+}
+
+.plan-card__recommended-tag {
+  position: absolute;
+  top: 20px;
+  left: 35px;
+  background-color: #7df0ba;
+  color: black;
+  padding: 2px 7px;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  font-family: "Lato";
+}
+
+hr {
+  margin: 20px 0;
+}
+
+.plan-summary {
+  width: 100%;
+  max-width: 935px;
+  margin: 0 auto;
+  font-family: "Lato", sans-serif;
+  color: #141938;
+
+  h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #141938;
+    margin-bottom: 1.4rem;
+    margin-top: 1.4rem;
+    text-align: left; /* Alineado a la izquierda */
+  }
+
+  hr {
+    margin: 0;
+    border-color: #d7dbf5;
+  }
+
+  small {
+    text-transform: uppercase;
+    color: #141938;
+    font-weight: 600;
+    font-size: 0.7rem;
+  }
+
+  .subtitles {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 700;
+    color: #141938;
+    margin-top: 12px;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background-color: #fff;
+    border-radius: 25px;
+    padding: 30px;
+    -webkit-box-shadow: 1px 0px 15px 2px rgba(227, 239, 255, 0.5);
+    box-shadow: 1px 0px 15px 2px rgba(227, 239, 255, 0.5);
+    width: 100%;
+  }
+
+  .plan-summary__item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+
+    .plan-summary__icon {
+      width: 30px;
+      height: 30px;
+      margin-right: 12px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+
+    p {
+      font-size: 20px;
+      color: #141938;
+      font-weight: 700;
+    }
+
+    strong {
+      color: #141938;
+      font-weight: 600;
+    }
+  }
+  .plan-summary__item {
+    &.info {
+      margin: 0;
+      p {
+        font-size: 16px;
+        line-height: 24px;
+        font-weight: 400;
+        color: #141938;
+      }
+    }
+  }
+}
+
+@media (max-width: 980px) {
+  .plan-summary {
+    padding-top: 2rem;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    padding: 20px;
+    border-radius: 10px;
+    width: 85%;
+  }
+}
+
+@media (max-width: 768px) {
+  .plans-list {
+    .plans-sliderWrap {
+      padding: 0 30px;
+    } /* espacio para flechas en mobile */
+
+    /* carrusel con snap, 100% dentro del container */
+    &__grid.slider {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding: 8px 0 30px 0px;
+      margin: 0; /* evita “sangrías” fuera del container */
+      scrollbar-width: none; /* Firefox */
+    }
+    &__grid.slider::-webkit-scrollbar {
+      display: none;
+    } /* WebKit */
+
+    /* cada tarjeta ocupa ~85% del ancho visible para “asomar” la siguiente */
+    .plan-card {
+      flex: 0 0 80%;
+      scroll-snap-align: start;
+      padding: 50px 28px;
+    }
+
+    .slider-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9;
+    }
+  }
+
+  .plan-card {
+    scroll-snap-align: start;
+    transition: transform 0.3s ease;
+  }
+
+  .plan-card:hover {
+    transform: translateY(-3px);
+  }
+
+  .plan-card__recommended-tag {
+    left: 20px;
+  }
+
+  .plans-list__grid.slider {
+    display: flex;
+    overflow-x: auto;
+    gap: 16px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    // padding: 16px;
+    // margin: 0 -16px;
+  }
+
+  .plans-list__grid.slider::-webkit-scrollbar {
+    height: 6px;
+  }
+  .plans-list__grid.slider::-webkit-scrollbar-thumb {
+    background-color: rgba(79, 79, 255, 0.3);
+    border-radius: 10px;
+  }
+
+  .plans-list {
+    .container {
+      margin: 0 -15px;
+    }
+  }
+
+  .plan-card {
+    &__label {
+      font-size: 12px;
+    }
+    .plan-card__desc {
+      list-style: none; /* quitamos bullets del navegador */
+      padding-left: 0;
+      // margin-top: 12px;
+
+      li {
+        position: relative;
+        padding-left: 42px;
+        margin: 0 0 15px 0;
+        line-height: 1.68;
+        font-size: 16px;
+      }
+
+      /* Base del icono */
+      li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: -3px;
+        width: 32px;
+        height: 32px;
+        border-radius: 0px;
+        background-color: transparent;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 32px 32px;
+      }
+
+      /* 3 imágenes distintas para los primeros 3 items */
+      li:nth-child(1)::before {
+        background-image: url("/assets//icons/mobile-list-1.png");
+      }
+      li:nth-child(2)::before {
+        background-image: url("/assets//icons/mobile-list-2.png");
+      }
+      li:nth-child(3)::before {
+        background-image: url("/assets//icons/mobile-list-3.png");
+      }
+
+      /* Si hay más de 3 items, repetimos el patrón 1–2–3 */
+      li:nth-child(3n + 1)::before {
+        background-image: url("/assets//icons/mobile-list-1.png");
+      }
+      li:nth-child(3n + 2)::before {
+        background-image: url("/assets//icons/mobile-list-2.png");
+      }
+      li:nth-child(3n + 3)::before {
+        background-image: url("/assets//icons/mobile-list-3.png");
+      }
+    }
+  }
+
+  .plan-card__icon {
+    height: 60px;
+  }
+
+  .insurance-page {
+    background-color: #fafbff !important;
+    padding-bottom: 4rem;
+  }
+
+  .plan-summary {
+    padding-top: 2rem;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+
+    .container {
+      width: 100%;
+      padding: 20px;
+    }
+
+    .subtitles {
+      font-size: 17px;
+      line-height: 24px;
+      font-weight: 700;
+      color: #141938;
+      margin-top: 12px;
+    }
+  }
+}
