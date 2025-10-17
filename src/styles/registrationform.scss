@@ -373,6 +373,7 @@ input.error {
 @media (min-width: 1550px) and (max-width: 1800px) {
   .form-section {
     padding: 40px 20px;
+    // min-height: calc(100dvh - 153px);
     min-height: calc(100dvh - 153px);
     align-items: baseline;
   }
@@ -493,8 +494,8 @@ input.error {
   }
 
   .abso.l-0.b-0.no-desktop {
-    width: clamp(180px, 55vw, 360px);
-    transform: translateY(-25%);
+    width: clamp(221px, 75vw, 364px);
+    transform: translateY(-13%);
   }
 }
 
@@ -515,4 +516,17 @@ input.error {
   .form-container {
     padding: 0;
   }
+
+  .abso.l-0.b-0.no-desktop {
+    transform: translateY(-7%);
+  }
+}
+
+
+/* Estilos Responsivos */
+@media (max-width: 400px) {
+  .abso.l-0.b-0.no-desktop {
+    transform: translateY(0%);
+  }
+  
 }
