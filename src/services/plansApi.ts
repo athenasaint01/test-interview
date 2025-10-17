@@ -24,7 +24,7 @@ export interface PlanApiResponse {
 // CONSTANTS
 // ============================================================================
 
-const PLANS_API_URL = import.meta.env.VITE_API_PLAN;
+const PLANS_API_URL = "https://rimac-front-end-challenge.netlify.app/api/plans.json";
 
 // ============================================================================
 // API FUNCTIONS
