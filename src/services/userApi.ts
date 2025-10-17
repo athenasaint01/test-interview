@@ -24,8 +24,7 @@ export interface UserData {
 // CONSTANTS
 // ============================================================================
 
-const USER_API_URL =
-  "https://rimac-front-end-challenge.netlify.app/api/user.json";
+const USER_API_URL = import.meta.env.VITE_API_USER;
 
 // ============================================================================
 // API FUNCTIONS
