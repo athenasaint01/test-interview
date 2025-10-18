@@ -17,3 +17,8 @@ Este es un proyecto creado con **React** y **TypeScript** (puedes eliminar TypeS
    ```bash
    git clone https://github.com/athenasaint01/test-interview
    ```
+2. Ejecutar el comando para ejecución local
+    npm run dev
+
+Nota:
+Se ignoraron varios archivos para que sean visibles en el proyecto dentro de Github
