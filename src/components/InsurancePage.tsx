@@ -41,15 +41,26 @@ const PLAN_IMAGES: Record<string, string> = {
 const calculateAge = (birthDate: string): number => {
   const today = new Date();
   const birth = new Date(birthDate);
-  let age = today.getFullYear() - birth.getFullYear();
-  const monthDiff = today.getMonth() - birth.getMonth();
 
-  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+  // Asegúrate de que la fecha esté en un formato ISO (YYYY-MM-DD)
+  const birthDateFormatted = new Date(birthDate.replace(/-/g, "/"));
+
+  // Si la fecha sigue siendo inválida, esto devolverá NaN, puedes agregar una verificación
+  if (isNaN(birthDateFormatted.getTime())) {
+    // alert("Fecha de nacimiento inválida");
+    return NaN;
+  }
+
+  let age = today.getFullYear() - birthDateFormatted.getFullYear();
+  const monthDiff = today.getMonth() - birthDateFormatted.getMonth();
+
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDateFormatted.getDate())) {
     age--;
   }
 
   return age;
 };
+
 
 const getPlanImage = (planName: string): string => {
   return PLAN_IMAGES[planName] || PLAN_IMAGES.default;
@@ -269,7 +280,6 @@ const InsurancePage: React.FC = () => {
         onClick={() => handleOptionSelect("personal")}
         role="button"
         tabIndex={0}
-        onKeyPress={(e) => e.key === "Enter" && handleOptionSelect("personal")}
       >
         <input
           type="radio"
@@ -297,7 +307,6 @@ const InsurancePage: React.FC = () => {
         onClick={() => handleOptionSelect("someone")}
         role="button"
         tabIndex={0}
-        onKeyPress={(e) => e.key === "Enter" && handleOptionSelect("someone")}
       >
         <input
           type="radio"

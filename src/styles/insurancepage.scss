@@ -760,7 +760,7 @@ hr {
 @media (max-width: 768px) {
   .plans-list {
     .plans-sliderWrap {
-      padding: 0 30px;
+      padding: 0 15px;
     } /* espacio para flechas en mobile */
 
     /* carrusel con snap, 100% dentro del container */
@@ -776,11 +776,11 @@ hr {
     }
     &__grid.slider::-webkit-scrollbar {
       display: none;
-    } /* WebKit */
+    }
 
     /* cada tarjeta ocupa ~85% del ancho visible para “asomar” la siguiente */
     .plan-card {
-      flex: 0 0 80%;
+      flex: 0 0 78%;
       scroll-snap-align: start;
       padding: 50px 28px;
     }
@@ -826,7 +826,7 @@ hr {
 
   .plans-list {
     .container {
-      margin: 0 -15px;
+      margin: 0 2px;
     }
   }
 
