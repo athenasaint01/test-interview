@@ -1,124 +1,68 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../context/UserContext";
 import { FaArrowLeft } from "react-icons/fa";
-import {
-  fetchPlans,
-  filterPlansByAge,
-  applyDiscountToPlans,
-  type Plan,
-} from "../services/plansApi";
+import { applyDiscountToPlans, type Plan } from "../services/plansApi";
 import "../styles/insurancepage.scss";
 import { scroller } from "react-scroll";
 
-// ============================================================================
-// TYPES & INTERFACES
-// ============================================================================
-
-type UserOption = "personal" | "someone";
-
-// ============================================================================
-// CONSTANTS
-// ============================================================================
-
-const DISCOUNT_RATE = 0.95;
-const SCROLL_GAP = 16;
-const CARD_ANIMATION_DELAY = 200;
-
-const PLAN_IMAGES: Record<string, string> = {
-  "Plan en Casa": "/assets/icons/ico-plans-1.png",
-  "Plan en Casa y Clínica": "/assets/icons/ico-plans-2.png",
-  "Plan en Casa + Bienestar": "/assets/icons/ico-plans-1.png",
-  "Plan en Casa + Chequeo": "/assets/icons/ico-plans-1.png",
-  "Plan en Casa + Fitness": "/assets/icons/ico-plans-1.png",
-  default: "/assets/icons/ico-plans-1.png",
-};
-
-// ============================================================================
-// UTILITY FUNCTIONS
-// ============================================================================
-
-const calculateAge = (birthDate: string): number => {
-  const today = new Date();
-  const birth = new Date(birthDate);
-
-  // Asegúrate de que la fecha esté en un formato ISO (YYYY-MM-DD)
-  const birthDateFormatted = new Date(birthDate.replace(/-/g, "/"));
-
-  // Si la fecha sigue siendo inválida, esto devolverá NaN, puedes agregar una verificación
-  if (isNaN(birthDateFormatted.getTime())) {
-    // alert("Fecha de nacimiento inválida");
-    return NaN;
-  }
-
-  let age = today.getFullYear() - birthDateFormatted.getFullYear();
-  const monthDiff = today.getMonth() - birthDateFormatted.getMonth();
-
-  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDateFormatted.getDate())) {
-    age--;
-  }
-
-  return age;
-};
-
-
-const getPlanImage = (planName: string): string => {
-  return PLAN_IMAGES[planName] || PLAN_IMAGES.default;
-};
-
-const formatPrice = (price: number): string => {
-  return price.toFixed(2);
-};
+// Imports from separated files
+import type { UserOption } from "../types/InsurancePage";
+import {
+  DISCOUNT_RATE,
+  CARD_ANIMATION_DELAY,
+  SCROLL_OFFSET,
+  SCROLL_DELAY,
+  HIGHLIGHT_PHRASES,
+} from "../constants/InsurancePage";
+import {
+  calculateAge,
+  getPlanImage,
+  formatPrice,
+  escapeRegExp,
+  normalizePlanName,
+} from "../helpers/InsurancePage";
+import { usePlansData, useSliderControls } from "../hooks/InsurancePage";
 
 // ============================================================================
 // MAIN COMPONENT
 // ============================================================================
 
-const InsurancePage: React.FC = () => {
+export default function InsurancePage() {
   const { userData, formData } = useUserContext();
   const navigate = useNavigate();
 
   // State Management
   const [currentStep, setCurrentStep] = useState<1 | 2>(1);
   const [selectedOption, setSelectedOption] = useState<UserOption | null>(null);
-  const [plans, setPlans] = useState<Plan[]>([]);
-  const [filteredPlans, setFilteredPlans] = useState<Plan[]>([]);
   const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
-  const [loadingPlans, setLoadingPlans] = useState(false);
-  const [errorPlans, setErrorPlans] = useState<string | null>(null);
 
-  // Slider Controls
-  const sliderRef = useRef<HTMLDivElement | null>(null);
-  const [canPrev, setCanPrev] = useState(false);
-  const [canNext, setCanNext] = useState(true);
+  // Derived Values - useMemo for performance
+  const userAge = useMemo(
+    () => (userData?.birthDay ? calculateAge(userData.birthDay) : 0),
+    [userData?.birthDay]
+  );
 
-  // Derived Values
-  const userAge = userData?.birthDay ? calculateAge(userData.birthDay) : 0;
-  const userName = userData?.name || "Usuario";
+  const userName = useMemo(
+    () => userData?.name || "Usuario",
+    [userData?.name]
+  );
 
-  // ============================================================================
-  // API CALLS
-  // ============================================================================
+  // Custom Hooks
+  const { plans, loadingPlans, errorPlans } = usePlansData(userAge);
 
-  const loadPlans = useCallback(async () => {
-    setLoadingPlans(true);
-    setErrorPlans(null);
-
-    try {
-      const allPlans = await fetchPlans();
-      const eligiblePlans = filterPlansByAge(allPlans, userAge);
-      setPlans(eligiblePlans);
-    } catch (error) {
-      const errorMessage =
-        error instanceof Error
-          ? error.message
-          : "Error desconocido al cargar planes";
-      setErrorPlans(errorMessage);
-      console.error("Error loading plans:", error);
-    } finally {
-      setLoadingPlans(false);
+  // Filter plans based on selected option
+  const filteredPlans = useMemo(() => {
+    if (!selectedOption || plans.length === 0) {
+      return [];
     }
-  }, [userAge]);
+
+    return selectedOption === "someone"
+      ? applyDiscountToPlans(plans, DISCOUNT_RATE)
+      : plans;
+  }, [selectedOption, plans]);
+
+  const sliderControls = useSliderControls(filteredPlans.length);
 
   // ============================================================================
   // EVENT HANDLERS
@@ -142,81 +86,17 @@ const InsurancePage: React.FC = () => {
     setCurrentStep(2);
   }, []);
 
-  const updateArrows = useCallback(() => {
-    const slider = sliderRef.current;
-    if (!slider) return;
-
-    const maxScroll = slider.scrollWidth - slider.clientWidth - 1;
-    setCanPrev(slider.scrollLeft > 1);
-    setCanNext(slider.scrollLeft < maxScroll);
-  }, []);
-
-  const scrollByOneCard = useCallback((direction: "prev" | "next") => {
-    const slider = sliderRef.current;
-    if (!slider) return;
-
-    const firstCard = slider.querySelector<HTMLElement>(".plan-card");
-    const scrollDistance = firstCard
-      ? firstCard.offsetWidth + SCROLL_GAP
-      : Math.round(slider.clientWidth * 0.9);
-
-    const scrollAmount =
-      direction === "next" ? scrollDistance : -scrollDistance;
-
-    slider.scrollBy({
-      left: scrollAmount,
-      behavior: "smooth",
-    });
-  }, []);
-
   // ============================================================================
   // EFFECTS
   // ============================================================================
 
-  // Fetch plans on mount
-  useEffect(() => {
-    loadPlans();
-  }, [loadPlans]);
-
-  // Filter plans based on selected option
-  useEffect(() => {
-    if (!selectedOption || plans.length === 0) {
-      setFilteredPlans([]);
-      return;
-    }
-
-    const updatedPlans =
-      selectedOption === "someone"
-        ? applyDiscountToPlans(plans, DISCOUNT_RATE)
-        : plans;
-
-    setFilteredPlans(updatedPlans);
-  }, [selectedOption, plans]);
-
-  // Setup slider scroll listener
-  useEffect(() => {
-    const slider = sliderRef.current;
-    if (!slider) return;
-
-    slider.addEventListener("scroll", updateArrows, { passive: true });
-    updateArrows();
-
-    return () => {
-      slider.removeEventListener("scroll", updateArrows);
-    };
-  }, [filteredPlans, updateArrows]);
-
-  // ============================================================================ 
-  // SCROLL TO TOP AFTER FORM SUBMISSION
-  // ============================================================================
-
+  // Scroll to top after step change
   useEffect(() => {
     if (currentStep === 2 || currentStep === 1) {
-      // Scroll to top after form submission
       scroller.scrollTo("insurance-page-top", {
         smooth: true,
-        offset: -100, // Optional offset
-        delay: 200
+        offset: SCROLL_OFFSET,
+        delay: SCROLL_DELAY,
       });
     }
   }, [currentStep]);
@@ -225,7 +105,7 @@ const InsurancePage: React.FC = () => {
   // RENDER HELPERS
   // ============================================================================
 
-  const renderProgressBar = () => (
+  const renderProgressBar = useCallback(() => (
     <div className="progress-container">
       <button
         className="back-button2 no-desktop"
@@ -237,7 +117,7 @@ const InsurancePage: React.FC = () => {
         </div>
       </button>
 
-      <nav className="progress" aria-label="Progreso de cotización">
+      <nav className="progress no-mobile" aria-label="Progreso de cotización">
         <div className={`step ${currentStep >= 1 ? "active" : ""}`}>
           <div className={`circle ${currentStep >= 1 ? "active" : ""}`}>1</div>
           <span className="step-title no-mobile">Planes y coberturas</span>
@@ -248,10 +128,15 @@ const InsurancePage: React.FC = () => {
           <span className="step-title no-mobile">Resumen</span>
         </div>
       </nav>
-    </div>
-  );
 
-  const renderBackButton = () => (
+      <div className="progress-bar-mobile ">
+        <label htmlFor="pasos" className="progress-text no-desktop">PASO 1 DE 2</label>
+        <progress id="pasos" className="no-desktop" value="5" max="100"></progress>
+      </div>
+    </div>
+  ), [currentStep, handleBack]);
+
+  const renderBackButton = useCallback(() => (
     <div className="back-button-row no-mobile">
       <button className="back-button" onClick={handleBack} aria-label="Volver">
         <div className="back-circle">
@@ -260,23 +145,21 @@ const InsurancePage: React.FC = () => {
         <span className="back-text">Volver</span>
       </button>
     </div>
-  );
+  ), [handleBack]);
 
-  const renderStepOneHeader = () => (
+  const renderStepOneHeader = useCallback(() => (
     <div className="centered-box-row">
       <div className="centered-box">
         <h1>{userName}, ¿Para quién deseas cotizar?</h1>
         <p>Selecciona la opción que mejor se ajuste a tus necesidades.</p>
       </div>
     </div>
-  );
+  ), [userName]);
 
-  const renderUserOptions = () => (
+  const renderUserOptions = useCallback(() => (
     <section className="options-row" aria-label="Opciones de cotización">
       <div
-        className={`option-box ${
-          selectedOption === "personal" ? "selected" : ""
-        }`}
+        className={`option-box ${selectedOption === "personal" ? "selected" : ""}`}
         onClick={() => handleOptionSelect("personal")}
         role="button"
         tabIndex={0}
@@ -301,9 +184,7 @@ const InsurancePage: React.FC = () => {
       </div>
 
       <div
-        className={`option-box ${
-          selectedOption === "someone" ? "selected" : ""
-        }`}
+        className={`option-box ${selectedOption === "someone" ? "selected" : ""}`}
         onClick={() => handleOptionSelect("someone")}
         role="button"
         tabIndex={0}
@@ -324,15 +205,41 @@ const InsurancePage: React.FC = () => {
         <div className="option-text">
           <h2 className="no-mobile">Para alguien más</h2>
           <p>
-            Realiza una cotización para uno de tus familiares o cualquier
-            persona.
+            Realiza una cotización para uno de tus familiares o cualquier persona.
           </p>
         </div>
       </div>
     </section>
-  );
+  ), [selectedOption, handleOptionSelect]);
 
-  const renderPlanCard = (plan: Plan, index: number) => {
+  /**
+   * Applies highlights to specific phrases in plan descriptions
+   */
+  const applyHighlights = useCallback((planName: string, text: string): React.ReactNode => {
+    const normalizedName = normalizePlanName(planName);
+    const phrases = HIGHLIGHT_PHRASES[normalizedName] || [];
+    if (phrases.length === 0) return text;
+
+    const regex = new RegExp(
+      `(${phrases.map((p) => escapeRegExp(p)).join("|")})`,
+      "gi"
+    );
+
+    const nodes: React.ReactNode[] = [];
+    let lastIndex = 0;
+
+    text.replace(regex, (match, _p1, offset) => {
+      if (offset > lastIndex) nodes.push(text.slice(lastIndex, offset));
+      nodes.push(<strong key={`${offset}-${match}`}>{match}</strong>);
+      lastIndex = offset + match.length;
+      return match;
+    });
+
+    if (lastIndex < text.length) nodes.push(text.slice(lastIndex));
+    return nodes;
+  }, []);
+
+  const renderPlanCard = useCallback((plan: Plan, index: number) => {
     const isRecommended = plan.name === "Plan en Casa y Clínica";
     const displayPrice = formatPrice(plan.price);
     const originalPrice =
@@ -375,7 +282,9 @@ const InsurancePage: React.FC = () => {
         {plan.description && plan.description.length > 0 && (
           <ul className="plan-card__desc">
             {plan.description.map((item, i) => (
-              <li key={`${index}-desc-${i}`}>{item}</li>
+              <li key={`${index}-desc-${i}`}>
+                {applyHighlights(plan.name, item)}
+              </li>
             ))}
           </ul>
         )}
@@ -388,9 +297,9 @@ const InsurancePage: React.FC = () => {
         </button>
       </article>
     );
-  };
+  }, [selectedOption, handleSelectPlan, applyHighlights]);
 
-  const renderPlansList = () => (
+  const renderPlansList = useCallback(() => (
     <section
       className="plans-list is-visible"
       aria-label="Lista de planes disponibles"
@@ -416,34 +325,42 @@ const InsurancePage: React.FC = () => {
 
         {!loadingPlans && !errorPlans && filteredPlans.length > 0 && (
           <div className="plans-sliderWrap">
-            <button
-              className="slider-btn slider-btn--prev"
-              onClick={() => scrollByOneCard("prev")}
-              disabled={!canPrev}
-              aria-label="Ver planes anteriores"
-            >
-              ‹
-            </button>
-
-            <div ref={sliderRef} className="plans-list__grid slider">
+            {/* SLIDER */}
+            <div ref={sliderControls.sliderRef} className="plans-list__grid slider">
               {filteredPlans.map((plan, idx) => renderPlanCard(plan, idx))}
             </div>
 
-            <button
-              className="slider-btn slider-btn--next"
-              onClick={() => scrollByOneCard("next")}
-              disabled={!canNext}
-              aria-label="Ver más planes"
-            >
-              ›
-            </button>
+            {/* FOOTER de navegación (debajo del slider) */}
+            <div className="slider-footer" aria-label="Navegación de planes">
+              <button
+                className="slider-btn slider-btn--prev"
+                onClick={() => sliderControls.scrollByOneCard("prev")}
+                disabled={!sliderControls.canPrev}
+                aria-label="Ver planes anteriores"
+              >
+                ‹
+              </button>
+
+              <span className="slider-counter" aria-live="polite">
+                {sliderControls.currentSlide} / {sliderControls.totalSlides}
+              </span>
+
+              <button
+                className="slider-btn slider-btn--next"
+                onClick={() => sliderControls.scrollByOneCard("next")}
+                disabled={!sliderControls.canNext}
+                aria-label="Ver más planes"
+              >
+                ›
+              </button>
+            </div>
           </div>
         )}
       </div>
     </section>
-  );
+  ), [loadingPlans, errorPlans, filteredPlans, sliderControls, renderPlanCard]);
 
-  const renderSummary = () => {
+  const renderSummary = useCallback(() => {
     if (!selectedPlan) return null;
 
     const finalPrice = formatPrice(selectedPlan.price);
@@ -489,7 +406,7 @@ const InsurancePage: React.FC = () => {
         </div>
       </section>
     );
-  };
+  }, [selectedPlan, userData, formData]);
 
   // ============================================================================
   // MAIN RENDER
@@ -497,20 +414,24 @@ const InsurancePage: React.FC = () => {
 
   return (
     <main className="insurance-page" id="insurance-page-top">
-      {renderProgressBar()}
-      {renderBackButton()}
-
       {currentStep === 1 && (
         <>
+          {renderProgressBar()}
+          {renderBackButton()}
           {renderStepOneHeader()}
           {renderUserOptions()}
           {selectedOption && renderPlansList()}
         </>
       )}
 
-      {currentStep === 2 && renderSummary()}
+      {currentStep === 2 && (
+        <>
+          {/* Oculto en mobile */}
+          <div className="no-mobile">{renderProgressBar()}</div>
+          {renderBackButton()}
+          {renderSummary()}
+        </>
+      )}
     </main>
   );
-};
-
-export default InsurancePage;
+}

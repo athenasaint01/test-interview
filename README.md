@@ -21,7 +21,6 @@ Este es un proyecto creado con **React** y **TypeScript** (puedes eliminar TypeS
    ```bash
    npm run dev
    ```
-    
 
 Nota: <br>
 Se ignoraron varios archivos para que sean visibles en el proyecto dentro de Github

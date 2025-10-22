@@ -1,0 +1,131 @@
+.plan-summary {
+  width: 100%;
+  max-width: 935px;
+  margin: 0 auto;
+  font-family: "Lato", sans-serif;
+  color: #141938;
+
+  h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #141938;
+    margin-bottom: 1.4rem;
+    margin-top: 1.4rem;
+    text-align: left;
+  }
+
+  hr {
+    margin: 0;
+    border-color: #d7dbf5;
+  }
+
+  small {
+    text-transform: uppercase;
+    color: #141938;
+    font-weight: 600;
+    font-size: 0.7rem;
+  }
+
+  .subtitles {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 700;
+    color: #141938;
+    margin-top: 12px;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background-color: #fff;
+    border-radius: 25px;
+    padding: 30px;
+    -webkit-box-shadow: 1px 0px 15px 2px rgba(227, 239, 255, 0.5);
+    box-shadow: 1px 0px 15px 2px rgba(227, 239, 255, 0.5);
+    width: 100%;
+  }
+
+  .plan-summary__item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+
+    .plan-summary__icon {
+      width: 30px;
+      height: 30px;
+      margin-right: 12px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+
+    p {
+      font-size: 20px;
+      color: #141938;
+      font-weight: 700;
+    }
+
+    strong {
+      color: #141938;
+      font-weight: 600;
+    }
+  }
+  .plan-summary__item {
+    &.info {
+      margin: 0;
+      p {
+        font-size: 16px;
+        line-height: 24px;
+        font-weight: 400;
+        color: #141938;
+      }
+    }
+  }
+}
+
+@media (max-width: 980px) {
+  .plan-summary {
+    padding-top: 2rem;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    padding: 20px;
+    border-radius: 10px;
+    width: 85%;
+  }
+}
+
+@media (max-width: 768px) {
+  .plan-summary {
+    padding-top: 2rem;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+
+    .container {
+      width: 100%;
+      padding: 20px;
+    }
+
+    .subtitles {
+      font-size: 17px;
+      line-height: 24px;
+      font-weight: 700;
+      color: #141938;
+      margin-top: 12px;
+    }
+  }
+}

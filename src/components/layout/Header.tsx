@@ -7,7 +7,7 @@ const Header = () => {
     <header className="header">
       <div className="header__content">
         <div className="header__logo">
-          <img src="/assets//icons/logo.svg" alt="Rimac Logo" />
+          <img loading="lazy" src="/assets//icons/logo.svg" alt="Rimac Logo" />
         </div>
         <div className="header__contact">
           <p>¡Compra por este medio!</p>

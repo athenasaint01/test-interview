@@ -1,0 +1,256 @@
+/* Estilos del formulario */
+.registration-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  padding: 20px 0;
+  background-color: transparent;
+  box-sizing: border-box;
+  font-family: "Lato";
+}
+
+/* Contenedor de los inputs y labels */
+.input-group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.input-group label {
+  font-size: 16px;
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  color: #848484;
+  transition: all 0.2s ease-in-out;
+  pointer-events: none;
+}
+
+/* Estilos para los inputs */
+.input-group input {
+  padding: 20px 12px 12px 12px;
+  border: 1px solid #848484;
+  max-width: 100%;
+  font-size: 16px;
+  transition: all 0.2s ease-in-out;
+  background-color: transparent; /* El fondo del input es transparente */
+  border-radius: 6px;
+}
+
+/* Estilo para los inputs en la misma línea */
+.input-group-inline {
+  display: flex;
+  justify-content: space-between;
+  gap: 0px; /* Ajusta el espacio entre los campos */
+}
+
+.input-group-inline select,
+.input-group-inline input {
+  padding: 16px;
+  border: 1px solid #848484;
+  font-size: 16px;
+}
+
+.input-group-inline select {
+  width: 40%;
+  border-bottom-left-radius: 6px;
+  border-top-left-radius: 6px;
+  border-right: 1px solid #848484;
+  color: #000;
+}
+
+.input-group-inline .input-group {
+  width: 60%;
+}
+
+.input-group-inline .input-group input {
+  padding: 20px 12px 12px 12px;
+  border-bottom-right-radius: 6px;
+  border-top-right-radius: 6px;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  border-left: 1px solid #848484;
+}
+
+/* Estilo para el select */
+select {
+  position: relative;
+  width: 100%; /* Asegura que ocupe todo el ancho */
+  padding: 10px 20px; /* Agrega un padding adecuado */
+  font-size: 16px; /* Aumentamos el tamaño de la fuente */
+  border: 1px solid #ccc; /* Borde para el select */
+  background: transparent url("/assets//icons/down-arrow.png") no-repeat right
+    10px center;
+  background-size: 18px; /* Tamaño de la flecha */
+  appearance: none; /* Elimina la flecha predeterminada del select */
+  outline: none; /* Elimina el borde de enfoque */
+}
+
+select:focus {
+  border-color: #5c5c5c; /* Cambia el borde al estar enfocado */
+}
+
+/* Para eliminar el borde de enfoque en el select */
+select:focus {
+  outline: none;
+}
+
+/* Mueve la flecha hacia la izquierda */
+select::-ms-expand {
+  display: none; /* Elimina el expand de IE */
+}
+
+input.error {
+  border-color: red;
+}
+
+/* Estilos de los checkboxes */
+.checkboxes {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.checkboxes label {
+  font-size: 14px;
+}
+
+/* Animación del spinner */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Cuando el input tiene el foco o un valor, el label sube */
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label {
+  top: 12px; /* Sube el label cuando el input tiene valor */
+  font-size: 12px; /* Hace más pequeño el label */
+  color: #5c5c5c; /* Cambia el color del texto */
+}
+
+/* Estilos al hacer foco o tener un valor */
+.input-group input:focus,
+.input-group input:not(:placeholder-shown) {
+  border-color: #5c5c5c; /* Cambia el borde al estar enfocado o con valor */
+  outline: none; /* Elimina el borde predeterminado de enfoque */
+}
+
+.tag {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: "Lato";
+  font-size: 16px;
+  line-height: 16px;
+  letter-spacing: 0.4px;
+  background: linear-gradient(90deg, #00f4e2, #00ff7f);
+  color: var(--secundary-color);
+  font-weight: bold;
+  width: fit-content;
+}
+
+/* From Uiverse.io by DaniloMGutavo */
+.checkbox-container {
+  display: inline-block;
+  position: relative;
+  padding-left: 35px;
+  cursor: pointer;
+  font-size: 12px;
+  user-select: none;
+  font-family: "Lato";
+}
+
+.custom-checkbox {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #eee;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+  // box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  border: 1px solid #0000002e;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+.custom-checkbox:checked ~ .checkmark {
+  background-color: #000;
+  box-shadow: 0 3px 7px rgba(33, 150, 243, 0.3);
+}
+
+.custom-checkbox:checked ~ .checkmark:after {
+  display: block;
+}
+
+@keyframes checkAnim {
+  0% {
+    height: 0;
+  }
+
+  100% {
+    height: 10px;
+  }
+}
+
+.custom-checkbox:checked ~ .checkmark:after {
+  animation: checkAnim 0.2s forwards;
+}
+
+/* Estilo para el texto de "Aplican Términos y Condiciones" */
+.terms-and-conditions {
+  font-size: 14px; /* Ajusta el tamaño de la fuente */
+  color: #333; /* Color del texto */
+
+  .terms-link {
+    color: #5c5c5c; /* Color gris para el enlace */
+    text-decoration: underline; /* Subraya el enlace */
+    cursor: pointer; /* Cambia el cursor al pasar por encima */
+    font-weight: bold; /* Hace el enlace más fuerte */
+    transition: color 0.3s; /* Transición suave para el color */
+
+    &:hover {
+      color: #000; /* Cambia el color a negro cuando se pasa por encima */
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .registration-form {
+    padding: 30px 0;
+  }
+
+  .checkbox-container {
+    font-size: 14px;
+  }
+
+}
