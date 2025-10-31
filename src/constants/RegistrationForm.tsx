@@ -3,7 +3,7 @@
 // ============================================================================
 
 /**
- * Delay in milliseconds before navigating to the next page after form submission
- * This provides visual feedback to the user that their submission is being processed
+ * Delay en milisegundos antes de navegar a la siguiente pagina y posteriormente acceder si el submit es el correcto
+ * Esto provee un feedback visual del proceso del submit
  */
 export const LOADING_DELAY = 2000;

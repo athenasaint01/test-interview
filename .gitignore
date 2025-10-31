@@ -10,8 +10,13 @@ yarn-error.log
 .vscode/
 .idea/
 
-# Claude
-CLAUDE.md
-
 # Public Files
 dist/
+
+# Markdown
+*.md
+
+__mocks__
+coverage/
+
+test.html

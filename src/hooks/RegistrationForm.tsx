@@ -15,20 +15,6 @@ export interface UseFetchUserDataReturn {
 // CUSTOM HOOKS
 // ============================================================================
 
-/**
- * Custom hook to fetch user data from API on component mount
- *
- * @returns {UseFetchUserDataReturn} Object containing isLoading and error states
- *
- * @example
- * ```tsx
- * const { isLoading, error } = useFetchUserData();
- *
- * if (error) {
- *   console.error("Failed to load user data:", error);
- * }
- * ```
- */
 export const useFetchUserData = (): UseFetchUserDataReturn => {
   const { setUserData } = useUserContext();
   const [isLoading, setIsLoading] = useState(true);
