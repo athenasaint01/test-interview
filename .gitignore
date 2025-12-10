@@ -20,3 +20,5 @@ __mocks__
 coverage/
 
 test.html
+
+.claude/
